@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RehabilitationDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TBLEXERCISE">
+          <Key>
+            <PropertyRef Name="EXERCISEID" />
+          </Key>
+          <Property Name="EXERCISEID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EXERCISENAME" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBLPATIENT">
+          <Key>
+            <PropertyRef Name="PATIENTID" />
+          </Key>
+          <Property Name="PATIENTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PATIENTNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="PATIENTSURNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="PATIENTAGE" Type="smallint" />
+          <Property Name="PATIENTGENDER" Type="nvarchar" MaxLength="50" />
+          <Property Name="PATIENTEHA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBLSESSION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExID" Type="smallint" />
+          <Property Name="PatID" Type="int" />
+          <Property Name="DURATION" Type="int" />
+          <Property Name="VELOCITY" Type="int" Nullable="false" />
+          <Property Name="POSITION" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TBLSESSION_TBLEXERCISE">
+          <End Role="TBLEXERCISE" Type="Self.TBLEXERCISE" Multiplicity="0..1" />
+          <End Role="TBLSESSION" Type="Self.TBLSESSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLEXERCISE">
+              <PropertyRef Name="EXERCISEID" />
+            </Principal>
+            <Dependent Role="TBLSESSION">
+              <PropertyRef Name="ExID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLSESSION_TBLPATIENT">
+          <End Role="TBLPATIENT" Type="Self.TBLPATIENT" Multiplicity="0..1" />
+          <End Role="TBLSESSION" Type="Self.TBLSESSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLPATIENT">
+              <PropertyRef Name="PATIENTID" />
+            </Principal>
+            <Dependent Role="TBLSESSION">
+              <PropertyRef Name="PatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RehabilitationDbModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLEXERCISE" EntityType="Self.TBLEXERCISE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLPATIENT" EntityType="Self.TBLPATIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLSESSION" EntityType="Self.TBLSESSION" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBLSESSION_TBLEXERCISE" Association="Self.FK_TBLSESSION_TBLEXERCISE">
+            <End Role="TBLEXERCISE" EntitySet="TBLEXERCISE" />
+            <End Role="TBLSESSION" EntitySet="TBLSESSION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLSESSION_TBLPATIENT" Association="Self.FK_TBLSESSION_TBLPATIENT">
+            <End Role="TBLPATIENT" EntitySet="TBLPATIENT" />
+            <End Role="TBLSESSION" EntitySet="TBLSESSION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RehabilitationDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBLEXERCISE">
+          <Key>
+            <PropertyRef Name="EXERCISEID" />
+          </Key>
+          <Property Name="EXERCISEID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EXERCISENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBLSESSION" Relationship="Self.FK_TBLSESSION_TBLEXERCISE" FromRole="TBLEXERCISE" ToRole="TBLSESSION" />
+        </EntityType>
+        <EntityType Name="TBLPATIENT">
+          <Key>
+            <PropertyRef Name="PATIENTID" />
+          </Key>
+          <Property Name="PATIENTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PATIENTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PATIENTSURNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PATIENTAGE" Type="Int16" />
+          <Property Name="PATIENTGENDER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PATIENTEHA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBLSESSION" Relationship="Self.FK_TBLSESSION_TBLPATIENT" FromRole="TBLPATIENT" ToRole="TBLSESSION" />
+        </EntityType>
+        <EntityType Name="TBLSESSION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExID" Type="Int16" />
+          <Property Name="PatID" Type="Int32" />
+          <Property Name="DURATION" Type="Int32" />
+          <Property Name="VELOCITY" Type="Int32" Nullable="false" />
+          <Property Name="POSITION" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBLEXERCISE" Relationship="Self.FK_TBLSESSION_TBLEXERCISE" FromRole="TBLSESSION" ToRole="TBLEXERCISE" />
+          <NavigationProperty Name="TBLPATIENT" Relationship="Self.FK_TBLSESSION_TBLPATIENT" FromRole="TBLSESSION" ToRole="TBLPATIENT" />
+        </EntityType>
+        <Association Name="FK_TBLSESSION_TBLEXERCISE">
+          <End Role="TBLEXERCISE" Type="Self.TBLEXERCISE" Multiplicity="0..1" />
+          <End Role="TBLSESSION" Type="Self.TBLSESSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLEXERCISE">
+              <PropertyRef Name="EXERCISEID" />
+            </Principal>
+            <Dependent Role="TBLSESSION">
+              <PropertyRef Name="ExID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLSESSION_TBLPATIENT">
+          <End Role="TBLPATIENT" Type="Self.TBLPATIENT" Multiplicity="0..1" />
+          <End Role="TBLSESSION" Type="Self.TBLSESSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLPATIENT">
+              <PropertyRef Name="PATIENTID" />
+            </Principal>
+            <Dependent Role="TBLSESSION">
+              <PropertyRef Name="PatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RehabilitationDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TBLEXERCISE" EntityType="Self.TBLEXERCISE" />
+          <EntitySet Name="TBLPATIENT" EntityType="Self.TBLPATIENT" />
+          <EntitySet Name="TBLSESSION" EntityType="Self.TBLSESSION" />
+          <AssociationSet Name="FK_TBLSESSION_TBLEXERCISE" Association="Self.FK_TBLSESSION_TBLEXERCISE">
+            <End Role="TBLEXERCISE" EntitySet="TBLEXERCISE" />
+            <End Role="TBLSESSION" EntitySet="TBLSESSION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLSESSION_TBLPATIENT" Association="Self.FK_TBLSESSION_TBLPATIENT">
+            <End Role="TBLPATIENT" EntitySet="TBLPATIENT" />
+            <End Role="TBLSESSION" EntitySet="TBLSESSION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RehabilitationDbModelStoreContainer" CdmEntityContainer="RehabilitationDbEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RehabilitationDbModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLEXERCISE">
+            <EntityTypeMapping TypeName="RehabilitationDbModel.TBLEXERCISE">
+              <MappingFragment StoreEntitySet="TBLEXERCISE">
+                <ScalarProperty Name="EXERCISEID" ColumnName="EXERCISEID" />
+                <ScalarProperty Name="EXERCISENAME" ColumnName="EXERCISENAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLPATIENT">
+            <EntityTypeMapping TypeName="RehabilitationDbModel.TBLPATIENT">
+              <MappingFragment StoreEntitySet="TBLPATIENT">
+                <ScalarProperty Name="PATIENTID" ColumnName="PATIENTID" />
+                <ScalarProperty Name="PATIENTNAME" ColumnName="PATIENTNAME" />
+                <ScalarProperty Name="PATIENTSURNAME" ColumnName="PATIENTSURNAME" />
+                <ScalarProperty Name="PATIENTAGE" ColumnName="PATIENTAGE" />
+                <ScalarProperty Name="PATIENTGENDER" ColumnName="PATIENTGENDER" />
+                <ScalarProperty Name="PATIENTEHA" ColumnName="PATIENTEHA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLSESSION">
+            <EntityTypeMapping TypeName="RehabilitationDbModel.TBLSESSION">
+              <MappingFragment StoreEntitySet="TBLSESSION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ExID" ColumnName="ExID" />
+                <ScalarProperty Name="PatID" ColumnName="PatID" />
+                <ScalarProperty Name="DURATION" ColumnName="DURATION" />
+                <ScalarProperty Name="VELOCITY" ColumnName="VELOCITY" />
+                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

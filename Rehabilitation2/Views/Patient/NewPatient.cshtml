@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "NewPatient";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div>
+        <label>Patient Name</label>
+        <input type="text" class="form-control" name="PATIENTNAME" />
+    </div>
+    <div>
+        <label>Patient Surname</label>
+        <input type="text" class="form-control" name="PATIENTSURNAME" />
+    </div>
+    <div>
+        <label>Patient Age</label>
+        <input type="text" class="form-control" name="PATIENTAGE"/>
+    </div>
+    <div>
+        <label>Patient Gender</label>
+        <fieldset >
+            <select id="PATIENTGENDER" name="PATIENTGENDER" class="form-control">
+
+
+
+                <option value="Male">Male</option>>
+
+                <option value="Female">Female</option>>
+            </select>
+        </fieldset>
+    </div>
+    <div>
+        <label>Patient Eha</label>
+        <input type="text" class="form-control" name="PATIENTEHA" />
+    </div>
+
+
+
+
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Add Patient</button>
+    </div>
+</form>
+

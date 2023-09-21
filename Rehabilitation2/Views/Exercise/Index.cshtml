@@ -1,0 +1,34 @@
+﻿@using Rehabilitation2.Models.Entity
+@model List<TBLSESSION>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h3>SESSIONS</h3>
+<table class="table table-bordered">
+    <tr>
+        <th>PATIENT NAME</th>
+        <th>EXERCISE NAME</th>
+        <th>DURATION</th>
+        <th>VELOCITY</th>
+        <th>POSITION</th>
+        <th>DELETE</th>
+    </tr>
+    <tbody>
+        @foreach (var ses in Model)
+        {
+        <tr>
+
+            <td>@ses.TBLPATIENT.PATIENTNAME</td>
+            <td>@ses.TBLEXERCISE.EXERCISENAME</td>
+            <td>@ses.DURATION</td>
+            <td>@ses.VELOCITY</td>
+            <td>@ses.POSITION</td>
+            <td><a href="/Exercise/Delete/@ses.ID" class="btn btn-danger">DELETE</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a href="/Exercise/StartExercise/" class="btn btn-primary">START EXERCISE</a>

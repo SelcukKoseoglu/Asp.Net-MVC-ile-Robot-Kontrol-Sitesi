@@ -1,0 +1,33 @@
+﻿@model Rehabilitation2.Models.Entity.TBLPATIENT
+@{
+    ViewBag.Title = "HastaGetir";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@using (Html.BeginForm("Update", "Patient", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.LabelFor(m => m.PATIENTID)
+    @Html.TextBoxFor(m => m.PATIENTID, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.PATIENTNAME)
+    @Html.TextBoxFor(m => m.PATIENTNAME, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.PATIENTSURNAME)
+    @Html.TextBoxFor(m => m.PATIENTSURNAME, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.PATIENTAGE)
+    @Html.TextBoxFor(m => m.PATIENTAGE, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.PATIENTGENDER)
+    @Html.TextBoxFor(m => m.PATIENTGENDER, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.PATIENTEHA)
+    @Html.TextBoxFor(m => m.PATIENTEHA, new { @class = "form-control" })
+
+
+</div>
+<div>
+    <button class="btn btn-warning">Update</button>
+</div>
+}

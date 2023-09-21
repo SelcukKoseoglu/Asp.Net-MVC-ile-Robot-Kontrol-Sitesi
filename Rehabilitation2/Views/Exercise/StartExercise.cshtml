@@ -1,0 +1,38 @@
+﻿@model Rehabilitation2.Models.Entity.TBLSESSION
+
+@{
+    ViewBag.Title = "StartExercise";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div>
+        <label>Select Patient</label>
+        @Html.DropDownListFor(m => m.TBLPATIENT.PATIENTID, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-control"})
+    </div>
+    <br />
+    <div>
+        <label>Select Exercise</label>
+        @Html.DropDownListFor(m =>m.TBLEXERCISE.EXERCISEID, (List<SelectListItem>)ViewBag.dgr2, new { @class = "form-control" })
+    </div>
+    <br />
+    <div>
+        <label>Duration</label>
+        <input type="text" class="form-control" name="DURATION" />
+    </div>
+    <br />
+    <div>
+        <label>Velocity</label>
+        <input type="text" class="form-control" name="VELOCITY" />
+    </div>
+    <br />
+    <div>
+        <label>Position</label>
+        <input type="text" class="form-control" name="POSITION" />
+    </div>
+
+    <div style="margin-top:15px">
+        <button class="btn btn-success">START</button>
+    </div>
+</form>
+

@@ -1,0 +1,40 @@
+﻿@using Rehabilitation2.Models.Entity
+@model List<TBLPATIENT>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h3>PATIENTS</h3>
+<table class="table table-bordered">
+    <tr>
+        <th>PATIENT ID</th>
+        <th>PATIENT NAME</th>
+        <th>PATIENT SURNAME</th>
+        <th>PATIENT AGE</th>
+        <th>PATIENT GENDER</th>
+        <th>PATIENT EHA</th>
+        <th>DELETE</th>
+        <th>UPDATE</th>
+    </tr>
+    <tbody>
+        @{ int i = 1; }
+        @foreach (var pat in Model)
+        {
+        <tr>
+            <td>@i</td>
+            <td>@pat.PATIENTNAME</td>
+            <td>@pat.PATIENTSURNAME</td>
+            <td>@pat.PATIENTAGE</td>
+            <td>@pat.PATIENTGENDER</td>
+            <td>@pat.PATIENTEHA</td>
+            <td><a href="/Patient/Delete/@pat.PATIENTID" class="btn btn-danger">DELETE</a></td>
+            <td><a href="/Patient/HastaGetir/@pat.PATIENTID" class="btn btn-success">UPDATE</a></td>
+        </tr>
+        i += 1;
+        
+        }
+    </tbody>
+</table>
+<a href="/Patient/NewPatient/" class="btn btn-primary">ADD PATIENT</a>
+
